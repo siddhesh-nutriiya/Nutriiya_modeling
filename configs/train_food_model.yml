@@ -1,0 +1,16 @@
+# config.yml
+
+model_seq: "v1.0"
+pretrained: false
+pretrained_path: "models/best_resnet18.pth"
+
+data:
+  data_dir: "Data/1"
+  batch_size: 128
+  num_workers: 4
+
+training:
+  num_epochs: 20
+  patience: 5
+  lr: 0.0001
+  device: "cuda"  # Set to "cpu" or "cuda"
