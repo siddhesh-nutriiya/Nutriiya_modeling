@@ -144,7 +144,7 @@ def train_model(train_loader, test_loader, val_loader, num_classes, config):
             if (epoch + 1) % 5 == 0:
                 epoch_path = os.path.join(model_folder, f"epoch_{epoch+1}.pth")
                 torch.save(model.state_dict(), epoch_path)
-                logger.info(f"💾 Saved checkpoint at: {epoch_path}")
+                logger.info(f"Saved checkpoint at: {epoch_path}")
 
             # --- Save Best Model ---
             if val_acc > best_acc:
@@ -153,7 +153,7 @@ def train_model(train_loader, test_loader, val_loader, num_classes, config):
                 best_path = os.path.join(model_folder, "best.pth")
                 torch.save(model.state_dict(), best_path)
                 mlflow.pytorch.log_model(model, "best_model")
-                logger.info(f"✅ Best model saved at: {best_path}")
+                logger.info(f"Best model saved at: {best_path}")
             else:
                 epochs_no_improve += 1
 
@@ -163,14 +163,14 @@ def train_model(train_loader, test_loader, val_loader, num_classes, config):
 
             # --- Stop if acc too high or early stop ---
             if val_acc >= 0.95 or epoch_acc >= 0.95:
-                logger.info(f"🎯 Accuracy threshold reached (Train: {epoch_acc:.4f}, Val: {val_acc:.4f}). Stopping training.")
+                logger.info(f"Accuracy threshold reached (Train: {epoch_acc:.4f}, Val: {val_acc:.4f}). Stopping training.")
                 break
 
             if epochs_no_improve >= patience:
                 logger.warning("Early stopping triggered.")
                 break
 
-        logger.info(f"🏁 Training complete. Best Val Accuracy: {best_acc:.4f}")
+        logger.info(f"Training complete. Best Val Accuracy: {best_acc:.4f}")
         mlflow.log_metric("best_val_acc", best_acc)
 
 # ----------------- MAIN --------------------
@@ -192,7 +192,7 @@ if __name__ == "__main__":
             current_round=args.round,
             batch_size=data_cfg.get('batch_size', 128),
             img_size=data_cfg.get('img_size', 224),
-            num_workers=data_cfg.get('num_workers', 2)
+            num_workers=data_cfg.get('num_workers', 4)
         )
         test_loader = val_loader = None
     else:
@@ -200,7 +200,7 @@ if __name__ == "__main__":
             data_dir=data_cfg['data_dir'],
             batch_size=data_cfg.get('batch_size', 128),
             img_size=data_cfg.get('img_size', 224),
-            num_workers=data_cfg.get('num_workers', 2),
+            num_workers=data_cfg.get('num_workers', 4),
             val_split=args.val_split
         )
 

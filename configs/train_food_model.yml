@@ -1,11 +1,11 @@
 # config.yml
 
-model_seq: "v1.0"
-pretrained: false
-pretrained_path: "models/best_resnet18.pth"
+model_seq: "v2.0" #for versioning
+pretrained: True # Use True to load a pretrained model, False to train from scratch
+pretrained_path: "./models/model_v1/best.pth"
 
 data:
-  data_dir: "Data/1"
+  data_dir: "Data"
   batch_size: 128
   num_workers: 4
 

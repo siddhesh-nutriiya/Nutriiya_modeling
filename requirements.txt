@@ -7,3 +7,4 @@ pandas
 numpy
 mlflow
 scikit-learn
+natsort
